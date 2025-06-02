@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バウンティHack認証システム</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Source Code Pro", "Courier New", monospace;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://play-lh.googleusercontent.com/YspEpU21eFsUSXO5dWAwjkxMyFBrA3xLt_Xh_b3o8xPLcOGys2KrOvjomLTZOeUYe47A') left center/50% 100% no-repeat,
+                url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070') right center/50% 100% no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '[ SYSTEM ACCESS ]';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #00ff41;
+            letter-spacing: 3px;
+            animation: flicker 2s infinite alternate;
+        }
+
+        .header h1 {
+            font-family: "Orbitron", monospace;
+            font-size: 2.8rem;
+            color: #00ff41;
+            text-shadow: 0 0 20px #00ff41;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .header .sub-text {
+            font-size: 1rem;
+            color: #bf00ff;
+            margin-top: 10px;
+            text-shadow: 0 0 10px #bf00ff;
+            animation: glow-purple 2s ease-in-out infinite alternate;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px;
+        }
+
+        .cards-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cards-container {
+            scrollbar-width: none;
+        }
+
+        .card {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            padding: 30px 25px;
+            width: 300px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), inset 0 0 20px rgba(0, 255, 65, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border: 2px solid;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 25px;
+        }
+
+        .google-logo { border-color: #00ff41; color: #00ff41; }
+        .apple-logo { border-color: #00ffff; color: #00ffff; }
+        .bandai-logo { border-color: #ff0040; color: #ff0040; font-size: 12px; line-height: 1.2; }
+        .transferid-logo { border-color: #8000ff; color: #8000ff; }
+
+        .login-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid;
+            background: transparent;
+            color: inherit;
+            font-family: "Source Code Pro", monospace;
+            cursor: pointer;
+        }
+
+        .google-btn { border-color: #00ff41; color: #00ff41; }
+        .apple-btn { border-color: #00ffff; color: #00ffff; }
+        .bandai-btn { border-color: #ff0040; color: #ff0040; }
+        .transferid-btn { border-color: #8000ff; color: #8000ff; }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff41; }
+            to { text-shadow: 0 0 30px #00ff41, 0 0 40px #00ff41; }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>引き継ぎ方法を選択</h1>
+            <div class="sub-text">>> ※引き継ぎ発行方法がわからない場合</div>
+        </div>
+        <div class="cards-container">
+            <div class="card">
+                <div class="logo-placeholder google-logo">G</div>
+                <h2>Googleアカウントで引き継ぎ</h2>
+                <p>Google アカウントに紐付けられたアカウントで続行</p>
+                <button class="login-btn google-btn">>> Googleで続行</button>
+            </div>
+
+            <div class="card">
+                <div class="logo-placeholder apple-logo">🍎</div>
+                <h2>Sign in with Apple</h2>
+                <p>Apple アカウントに紐付けられたアカウントで続行</p>
+                <button class="login-btn apple-btn">>> Appleで続行</button>
+            </div>
+
+            <div class="card">
+                <div class="logo-placeholder bandai-logo">BANDAI<br>NAMCO</div>
+                <h2>Bandai Namco ID</h2>
+                <p>Bandai Namco IDに紐付けられたアカウントで続行</p>
+                <button class="login-btn bandai-btn">>> Bandaiで続行</button>
+            </div>
+
+            <div class="card">
+                <div class="logo-placeholder transferid-logo">ID</div>
+                <h2>引き継ぎIDで引き継ぎ</h2>
+                <p>発行済みの引き継ぎIDとパスワードで続行</p>
+                <button class="login-btn transferid-btn">>> 引き継ぎIDで続行</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
